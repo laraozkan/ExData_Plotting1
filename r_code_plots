@@ -1,0 +1,39 @@
+# Getting the data (zip to txt)
+downloadURL <- "https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip"
+File1 <- "Data_power_consumption.zip"
+File2 <- "Data_power_consumption.txt"
+
+# Labeling
+DataSubset <- data[data$Date %in% c("1/2/2007","2/2/2007"),]
+Global_Active_Power <- as.numeric(subsetdata$Global_Active_Power)
+Global_Reactive_Power <- as.numeric(subsetdata$Global_Reactive_Power)
+Voltage <- as.numeric(subsetdata$Voltage)
+Sub_Metering_1 <- as.numeric(DataSubset$Sub_Metering_1)
+Sub_Metering_2 <- as.numeric(DataSubset$Sub_Metering_2)
+Sub_Metering_3 <- as.numeric(DataSubset$Sub_Metering_3)
+
+# Histogram (Plot 1)
+hist(Global_Active_Power, col="red", main="Global Active Power", xlab="Global Active Power (Kilowatts)")
+
+# Time Series (Plot 2)
+DateTime <- strptime(paste(DataSubset$Date, DataSubset$Time, sep=" "), "%d/%m/%Y %H:%M:%S") 
+plot(DateTime, Global_Active_Power, type="l", xlab="", ylab="Global Active Power (Kilowatts)")
+
+# Plot 3
+plot(datetime, Sub_Metering_1, type="l", ylab="Energy Sub metering", xlab="")
+lines(datetime, Sub_Metering_2, type="l", col="red")
+lines(datetime, Sub_Metering_3, type="l", col="blue")
+legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty=1, lwd=2.5, col=c("black", "red", "blue"))
+
+# Plot 4
+
+plot(DateTime, globalActivePower, type="l", xlab="", ylab="Global Active Power", cex=0.2)
+
+plot(DateTime, voltage, type="l", xlab="datetime", ylab="Voltage")
+
+plot(DateTime, Sub_Metering_1, type="l", ylab="Energy Submetering", xlab="")
+lines(DateTime, Sub_Metering_2, type="l", col="red")
+lines(DateTime, Sub_Metering_3, type="l", col="blue")
+legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), lty=, lwd=2.5, col=c("black", "red", "blue"), bty="o")
+
+plot(datetime, Global_Reactive_Power, type="l", xlab="datetime", ylab="Global_reactive_power", cex=0.2)
